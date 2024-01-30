@@ -10,6 +10,7 @@
                 console.log("port opened");
                 document.getElementById('btnconnect').setAttribute("disabled","disabled");
                 document.getElementById("btnWriteData").addEventListener('click', async ()=> {
+                    if(!document.getElementById('codetosend').checkValidity()) return;
                     const writer = port.writable.getWriter();
                     const code = Number(document.getElementById("codetosend").value);
                     const data = new Uint8Array([code]);
@@ -21,12 +22,12 @@
                     await port.close();
                     await port.forget();             
                     document.getElementById('btnconnect').removeAttribute("disabled");
-                });                
+                });                                
 
-            })
+            })            
             .catch((e) => {
                 console.log("error accesing serial ports");
-            });
+            });            
         });
     });    
 }) ()

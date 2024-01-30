@@ -2,12 +2,14 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <script type="text/javascript" src="connect.js"></script>
+        <link href="markup.css" rel="stylesheet">
     </head>
     <body>
         <button id="btnconnect">Connect USB</button><br /> 
         <div>
         <label for="codetosend">enter trigger code</label> 
-        <input id="codetosend" type="number" inputmode="numeric" pattern="[0-9]{3}" required />
+        <input id="codetosend" name="codetosend" type="text" pattern="\b([01]?[0-9][0-9]?|2[0-4][0-9]|25[0-5])" required="" />
+        
         <span class="validity"></span>
     </div>
         <button id="btnWriteData">send data</button> <br />
