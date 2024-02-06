@@ -1,0 +1,58 @@
+<button id="btnConnect" hidden="true">AuthorizePort</button>
+<script>
+
+
+async function implementButton() {
+    debugger;
+    let availablePorts = await navigator.serial.getPorts();    
+    if(availablePorts.length > 0) {return}
+    var button = document.getElementById("btnConnect");
+    button.hidden = false;
+    button.addEventListener("click", function() {
+          
+        let usbVendorId = 0x2E8A;
+        let usbProductId = 0x000A;
+        navigator.serial.requestPort({ filters: [{ usbVendorId, usbProductId}] })
+        .then( (port) => {            
+            console.log("port paired");                   
+        })            
+        .catch((e) => {
+            console.error("error accesing serial ports");        
+        });            
+        
+    });
+
+}
+
+async function portWrite(value) {
+    
+    let availablePorts = await navigator.serial.getPorts();    
+    if(availablePorts.length < 1) {
+        return;
+    }
+    let currentport = availablePorts[0];        
+    await currentport.open({ baudRate: 115200 }).catch((error)=>
+    {
+        console.error(error);
+        return;
+    });                
+    
+    const writer = await currentport.writable.getWriter();
+    const datatosend = new Uint8Array([Number(value)]);
+    try {
+        await writer.write(datatosend);
+    } catch (error) {
+        console.error(error)
+    };                
+    try {
+        await writer.releaseLock();
+    } catch(error) {
+        console.error(error);
+    };
+    try {
+        await currentport.close(); 
+    } catch(error) {
+        console.error(error);
+    };                
+}
+</script>
