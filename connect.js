@@ -1,9 +1,9 @@
 (() => {
     document.addEventListener("DOMContentLoaded", ()=> {
-        document.getElementById('btnconnect').addEventListener('click', () => {
-            let usbVendorId = 0x2E8A;
-            let usbProductId = 0x000A;
-            navigator.serial.requestPort({ filters: [{ usbVendorId, usbProductId}] })
+        document.getElementById('btnconnect').addEventListener('click', () => {            
+            navigator.serial.requestPort({  filters: [
+                { usbVendorId: 0x2E8A, usbProductId: 0x000A },
+                { usbVendorId: 0x0403, usbProductId: 0x6015 }], })
             .then(async (port) => {            
                 console.log("port paired");
                 await port.open({ baudRate: 115200 });    
