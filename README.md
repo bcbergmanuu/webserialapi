@@ -5,6 +5,8 @@ Send codes to trigger
 
 Send codes to 8 bit triggerbox, it behaves like serial over usb to printer parallel port. 
 
+[bio semi trigger cable](https://www.biosemi.com/faq/USB%20Trigger%20interface%20cable.htm) is supported.
+
 Only chromium and internet expolorer are supported.
 
 For ubuntu users that installed chromium using Snap:
